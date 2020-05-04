@@ -1,0 +1,18 @@
+dist: bionic
+services:
+  - docker
+script:
+  - chmod 777 -R . # We need to use the builder user, without this, it doesn't work.
+  - docker run --rm --user='builder' -v $(pwd):/srv sensson/rpmbuild:8
+before_deploy:
+  - pip install --user cloudsmith-cli
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+  - bash deploy.sh
+  on:
+    branch: master
+env:
+  global:
+    secure: Lw3DmYYV2PxYCCmEbujFcBQ0m0h8tClpyCeDUCTuUxZZduAUod9L0VgnmgHbdEOENcA28no5XWi5gSWsFrSOBN9Ipfi3q2V0FzjCiK9gNl84Joy4V5z+M46V5WhHgyLy1fBneyti7Y1GjJnrqIhPtoElzMC8M+NUv9uSte6Lz4jNmI/9Lxb5nDJjDtyDbF623MwRtQHADH97JIw27FmXAwNmAKn0dMZ3gViJI43t1MMUJgCv1YPiRot8JqZYvwqIk0a0Za7O1zoc67SwRm95WOlVr5N/gjaOSSlPTujxwtcn7rE2pxhAV/tZ607HJnT59aBQLdxG05hkRD0wxalaX/2SYo6QqHtCGgG3oVse397+/MXhWHtxATrgzPjjv+yS2eF9OM7eReA1WmhDnwTkqX760GGv5ohShMa9hafCgoXid6EoA/Ejc78PzqPBbgXcd7rTOIKFPVvIt6dvFXaWJWMubqipPy3ToA6+vou5pro5uf6Qd0GCXC5Q8SHpLm6dG3oLTKXCEwCE2f5zLcqcJueiPHIfIR5CVA4OekvUl/tbxHCOvJQ4fcQa1NPw8jpBJUSCv7S81Sp7W5k3pCtAbJzQDX2BNI9ORDBvDCZbK1xR1VJGtg7JOTcMQgXlHyGaQY+RPgX6k4zLEEHmkl7zkOTtrIWLM1qco2rgRB4ROhw=

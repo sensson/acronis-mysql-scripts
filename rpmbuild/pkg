@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rpmbuild -bb /srv/rpmbuild/SPECS/acronis-mysql-scripts.spec

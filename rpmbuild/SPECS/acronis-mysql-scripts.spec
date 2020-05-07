@@ -10,6 +10,10 @@ Backups scripts to be used by Acronis to make backups of MySQL.
 %install
 mkdir -p %{buildroot}/var/lib/Acronis/
 cp /srv/mysqlbackup.sh %{buildroot}/var/lib/Acronis/
+cp /srv/mysql.conf %{buildroot}/var/lib/Acronis/
 
 %files
 /var/lib/Acronis/mysqlbackup.sh
+/var/lib/Acronis/mysql.conf
+
+%config(noreplace) /var/lib/Acronis/mysql.conf

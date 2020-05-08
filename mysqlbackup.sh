@@ -7,22 +7,7 @@ set -e
 set -o pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-
-getValueFromConfig() {
-    if [ ! -f "${DIR}/mysql.conf" ]; then
-      >&2 echo 'Configuration file missing.'
-      exit 1
-    fi
-
-    VALUE=$(grep ${1} "${DIR}/mysql.conf" | cut -d '=' -f 2)
-
-    if [ -z $VALUE ]; then
-      >&2 echo "No value set for ${1}"
-      exit 1
-    fi
-
-    echo $VALUE
-}
+source "${DIR}/functions.sh"
 
 BACKUP_LOCATION=$(getValueFromConfig backup_location)
 LOCAL_RETENTION=$(getValueFromConfig local_retention)

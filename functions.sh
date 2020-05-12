@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 getValueFromConfig() {
     if [ ! -f "${DIR}/mysql.conf" ]; then

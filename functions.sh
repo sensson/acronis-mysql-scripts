@@ -6,11 +6,17 @@ getValueFromConfig() {
       exit 1
     fi
 
+    if [ -z $2 ]; then
+      >&2 echo "No default value set for ${1}"
+    fi
+
     VALUE=$(grep ${1} "${DIR}/mysql.conf" | cut -d '=' -f 2)
 
+    # Return default value ($2) when no value exists
+
     if [ -z $VALUE ]; then
-      >&2 echo "No value set for ${1}"
-      exit 1
+      echo $2
+      exit 0
     fi
 
     echo $VALUE

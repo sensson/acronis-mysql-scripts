@@ -3,14 +3,13 @@
 # Basic MySQL backups with retention.
 #
 
-set -e
-set -o pipefail
+set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "${DIR}/functions.sh"
 
-BACKUP_LOCATION=$(getValueFromConfig backup_location)
-LOCAL_RETENTION=$(getValueFromConfig local_retention)
+BACKUP_LOCATION=$(getValueFromConfig backup_location /backup)
+LOCAL_RETENTION=$(getValueFromConfig local_retention 2)
 DATE=$(date +"%Y%m%d")
 EXTRA_FILE=/root/.my.cnf
 

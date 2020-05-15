@@ -38,5 +38,7 @@ for DB in $DATABASES; do
 done
 
 # Cleanup, remove old backups and empty directories
-find "${BACKUP_LOCATION}/" -type f -mtime +"${LOCAL_RETENTION}" -delete -print
-find "${BACKUP_LOCATION}/" -type d -empty -delete -print
+# In some odd cases this fails, continue if so
+
+find "${BACKUP_LOCATION}/" -type f -mtime +"${LOCAL_RETENTION}" -delete -print || true
+find "${BACKUP_LOCATION}/" -type d -empty -delete -print || true

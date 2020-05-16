@@ -6,12 +6,19 @@ of MySQL to create consistent backups of the raw data directory.
 
 ## Installation
 
+The following command will install the Sensson OSS-repository.
+
 ```
-curl -1sLf \
+$ curl -1sLf \
   'https://dl.cloudsmith.io/public/sensson/base/cfg/setup/bash.rpm.sh' \
   | sudo bash
+```
 
-yum install acronis-mysql-scripts
+Once the Sensson OSS-repository is available you can use `yum` to install
+these scripts and keep them up to date.
+
+```
+$ sudo yum install acronis-mysql-scripts
 ```
 
 ## Configuration
@@ -35,3 +42,21 @@ want or include both.
 10. We suggest to leave all default settings as they are.
 11. Click **Done** and **Save changes** and apply it to the backup plan.
 12. Run the backup to test if things are working.
+
+## Limitations
+
+These scripts have been tested on CentOS 7 and 8.
+
+## Tests
+
+Sorry, this code doesn't come with tests yet.
+
+## Development
+
+We strongly believe in the power of open source. This module is our way of
+saying thanks.
+
+If you want to contribute please:
+
+1. Fork the repository.
+2. Push to your fork and submit a pull request to the develop branch.

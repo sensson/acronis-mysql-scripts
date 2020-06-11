@@ -33,7 +33,7 @@ mkdir -p "${BACKUP_LOCATION}/${DATE}"
 
 for DB in $DATABASES; do
   echo -n $DB
-  mysqldump --defaults-extra-file="${EXTRA_FILE}" --force --skip-lock-tables --events --databases "${DB}" | gzip > "${BACKUP_LOCATION}/${DATE}/${DB}.sql.gz"
+  mysqldump --defaults-extra-file="${EXTRA_FILE}" --force --skip-lock-tables --events --routines --databases "${DB}" | gzip > "${BACKUP_LOCATION}/${DATE}/${DB}.sql.gz"
   echo " OK"
 done
 

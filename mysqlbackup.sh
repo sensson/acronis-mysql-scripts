@@ -27,7 +27,7 @@ if [ "${BACKUP_LOCATION}" = "/" ]; then
   exit 1
 fi
 
-DATABASES=$(mysql --defaults-extra-file="$EXTRA_FILE" -e "SHOW DATABASES" | grep -Ev 'Database|information_schema|performance_schema|mysql')
+DATABASES=$(mysql --defaults-extra-file="$EXTRA_FILE" -N -e "SHOW DATABASES" | grep -Ev '^(information_schema|performance_schema|mysql)$')
 
 mkdir -p "${BACKUP_LOCATION}/${DATE}"
 

@@ -29,12 +29,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Script
         run: |
-          mkdir -p .debpkg/var/lib/Acronis/
-          cp mysqlbackup.sh .debpkg/var/lib/Acronis/
-          cp mysqlfreeze.sh .debpkg/var/lib/Acronis/
-          cp mysqlthaw.sh .debpkg/var/lib/Acronis/
-          cp mysql.conf .debpkg/var/lib/Acronis/
-          cp functions.sh .debpkg/var/lib/Acronis/
+          mkdir -p .debpkg/var/lib/Acronis/mysql/
+          cp mysqlbackup.sh .debpkg/var/lib/Acronis/mysql/
+          cp mysqlfreeze.sh .debpkg/var/lib/Acronis/mysql/
+          cp mysqlthaw.sh .debpkg/var/lib/Acronis/mysql/
+          cp mysql.conf .debpkg/var/lib/Acronis/mysql/
+          cp functions.sh .debpkg/var/lib/Acronis/mysql/
       - uses: jiro4989/build-deb-action@v3
         with:
           package: acronis-mysql-scripts

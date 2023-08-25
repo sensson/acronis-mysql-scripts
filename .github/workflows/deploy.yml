@@ -9,6 +9,7 @@ jobs:
   build-rpm:
     runs-on: centos-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Permissions
         run: chmod 777 -R .
       - name: Build
@@ -17,5 +18,27 @@ jobs:
         run: pip install --user cloudsmith-cli
       - name: Deploy
         run: bash deploy.sh
+
+  build-deb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Script
+        run: |
+          mkdir -p .debpkg/var/lib/Acronis/
+          cp mysqlbackup.sh .debpkg/var/lib/Acronis/
+          cp mysqlfreeze.sh .debpkg/var/lib/Acronis/
+          cp mysqlthaw.sh .debpkg/var/lib/Acronis/
+          cp mysql.conf .debpkg/var/lib/Acronis/
+          cp functions.sh .debpkg/var/lib/Acronis/
+      - uses: jiro4989/build-deb-action@v3
+        with:
+          package: acronis-mysql-scripts
+          package_root: .debpkg
+          maintainer: Sensson
+          version: ${{ github.ref }} # refs/tags/v*.*.*
+          arch: 'amd64'
+          desc: 'Backups scripts to be used by Acronis to make backups of MySQL.'
+      
     
     

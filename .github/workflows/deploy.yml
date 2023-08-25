@@ -7,9 +7,10 @@ on:
 
 jobs:
   build-rpm:
-    environment: Deployment
     runs-on: centos-latest
     steps:
+      - name: Set up Docker
+        uses: docker/setup-docker@v2
       - uses: actions/checkout@v2
       - name: Permissions
         run: chmod 777 -R .
@@ -19,9 +20,10 @@ jobs:
         run: pip install --user cloudsmith-cli
       - name: Deploy
         run: bash deploy-rpm.sh
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
 
   build-deb:
-    environment: Deployment
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -45,6 +47,8 @@ jobs:
         run: pip install --user cloudsmith-cli
       - name: Deploy
         run: bash deploy-deb.sh
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
       
     
     

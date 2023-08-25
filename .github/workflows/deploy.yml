@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build-rpm:
+    runs-on: centos-latest
+    steps:
+      - name: Permissions
+        run: chmod 777 -R .
+      - name: Build
+        run: docker run --rm --user='builder' -v $(pwd):/srv sensson/rpmbuild:8
+      - name: Dependencies
+        run: pip install --user cloudsmith-cli
+      - name: Deploy
+        run: bash deploy.sh
+    
+    

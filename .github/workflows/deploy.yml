@@ -39,6 +39,8 @@ jobs:
           version: ${{ github.ref }} # refs/tags/v*.*.*
           arch: 'amd64'
           desc: 'Backups scripts to be used by Acronis to make backups of MySQL.'
+      - name: Dependencies
+        run: pip install --user cloudsmith-cli
       - name: Deploy
         run: bash deploy-deb.sh
       

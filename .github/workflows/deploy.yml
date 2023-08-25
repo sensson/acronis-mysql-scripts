@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-rpm:
+    environment: Deployment
     runs-on: centos-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,6 +21,7 @@ jobs:
         run: bash deploy-rpm.sh
 
   build-deb:
+    environment: Deployment
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

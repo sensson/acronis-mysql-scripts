@@ -14,7 +14,7 @@ jobs:
         run: chmod 777 -R .
       - uses: addnab/docker-run-action@v3
         with:
-          image: sensson/rpmbuild:8
+          image: sensson/rpmbuild:rockylinux-8
           options: --user='builder' -v ${{ github.workspace }}:/srv
       - name: Dependencies
         run: pip install --user cloudsmith-cli

@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Permissions
         run: chmod 777 -R .
-      - uses: addnab/docker-run-action@v3
+      - uses: ju5t/docker-run-action@v0.0.1
         with:
           image: sensson/rpmbuild:rockylinux-8
           options: -v ${{ github.workspace }}:/srv -e RELEASE=${{ github.ref }}

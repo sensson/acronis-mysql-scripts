@@ -15,7 +15,7 @@ jobs:
       - name: Permissions
         run: chmod 777 -R .
       - name: Version
-        run: sed -i 's/##version##/${GITHUB_REF_NAME/v/}/g' rpmbuild/SPECS/acronis-mysql-scripts.spec
+        run: sed -i "s/##version##/${GITHUB_REF_NAME#v}/g" rpmbuild/SPECS/acronis-mysql-scripts.spec
       - name: Build
         run: docker run -v ${{ github.workspace }}:/srv -e RELEASE= sensson/rpmbuild:rockylinux-8
       - name: Dependencies

@@ -7,15 +7,15 @@ on:
 
 jobs:
   build-rpm:
-    runs-on: centos-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Set up Docker
-        uses: docker/setup-docker@v2
       - uses: actions/checkout@v2
       - name: Permissions
         run: chmod 777 -R .
-      - name: Build
-        run: docker run --rm --user='builder' -v $(pwd):/srv sensson/rpmbuild:8
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: sensson/rpmbuild:8
+          options: --user='builder' -v ${{ github.workspace }}:/srv
       - name: Dependencies
         run: pip install --user cloudsmith-cli
       - name: Deploy

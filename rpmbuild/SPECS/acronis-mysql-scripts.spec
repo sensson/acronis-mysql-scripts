@@ -1,5 +1,5 @@
 Name:           acronis-mysql-scripts
-Version:        %{version}
+Version:        ##version##
 Release:        1
 License:        MIT
 Summary:        MySQL backup scripts for Acronis

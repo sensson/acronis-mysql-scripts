@@ -39,6 +39,7 @@ jobs:
           cp mysqlthaw.sh .debpkg/var/lib/Acronis/
           cp mysql.conf .debpkg/var/lib/Acronis/
           cp functions.sh .debpkg/var/lib/Acronis/
+          chmod +x .debpkg/var/lib/Acronis/*.sh
       - uses: jiro4989/build-deb-action@v3
         with:
           package: acronis-mysql-scripts
@@ -55,6 +56,3 @@ jobs:
         run: bash deploy-deb.sh
         env:
           APIKEY: ${{ secrets.APIKEY }}
-      
-    
-    

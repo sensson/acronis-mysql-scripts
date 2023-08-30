@@ -5,6 +5,9 @@
 
 set -euo pipefail
 
+unset LD_LIBRARY_PATH
+unset LD_PRELOAD
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "${DIR}/functions.sh"
 

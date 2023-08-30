@@ -57,7 +57,10 @@ want or include both.
 
 ## Limitations
 
-These scripts have been tested on CentOS 7 and 8.
+These scripts have been tested on:
+
+- CentOS 7 and 8.
+- Ubuntu 22.04
 
 ## Tests
 

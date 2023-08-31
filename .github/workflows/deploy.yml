@@ -40,6 +40,11 @@ jobs:
           cp mysql.conf .debpkg/var/lib/Acronis/
           cp functions.sh .debpkg/var/lib/Acronis/
           chmod +x .debpkg/var/lib/Acronis/*.sh
+
+          # Config
+          mkdir -p .debpkg/DEBIAN
+          touch .debpkg/DEBIAN/conffiles
+          echo '/var/lib/Acronis/mysql.conf' >> .debpkg/DEBIAN/conffiles
       - uses: jiro4989/build-deb-action@v3
         with:
           package: acronis-mysql-scripts

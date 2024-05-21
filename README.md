@@ -60,7 +60,7 @@ want or include both.
 These scripts have been tested on:
 
 - CentOS 7 and 8.
-- Ubuntu 22.04
+- Ubuntu 22.04 and 24.04.
 
 ## Tests
 

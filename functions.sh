@@ -8,7 +8,7 @@ getValueFromConfig() {
       exit 1
     fi
 
-    if [ -z $2 ]; then
+    if [ -z $2 ] && [ "$1" != "skip_databases" ]; then
       >&2 echo "No default value set for ${1}"
     fi
 

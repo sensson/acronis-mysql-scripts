@@ -13,6 +13,7 @@ source "${DIR}/functions.sh"
 
 BACKUP_LOCATION=$(getValueFromConfig backup_location /backup)
 LOCAL_RETENTION=$(getValueFromConfig local_retention 2)
+SKIP_DATABASES=$(getValueFromConfig skip_databases "")
 DATE=$(date +"%Y%m%d")
 EXTRA_FILE=/root/.my.cnf
 
@@ -30,7 +31,12 @@ if [ "${BACKUP_LOCATION}" = "/" ]; then
   exit 1
 fi
 
-DATABASES=$(mysql --defaults-extra-file="$EXTRA_FILE" -N -e "SHOW DATABASES" | grep -Ev '^(information_schema|performance_schema|mysql)$')
+FILTER='^(information_schema|performance_schema|mysql)$'
+if [ -n "$SKIP_DATABASES" ]; then
+  FILTER="^(information_schema|performance_schema|mysql|$(echo "$SKIP_DATABASES" | tr ',' '|'))$"
+fi
+
+DATABASES=$(mysql --defaults-extra-file="$EXTRA_FILE" -N -e "SHOW DATABASES" | grep -Ev "$FILTER")
 
 mkdir -p "${BACKUP_LOCATION}/${DATE}"
 

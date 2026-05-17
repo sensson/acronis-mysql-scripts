@@ -11,6 +11,7 @@ source "${DIR}/functions.sh"
 EXTRA_FILE=$(getValueFromConfig extra_file "" mysql-remote.conf)
 BACKUP_LOCATION=$(getValueFromConfig backup_location /backup/remote mysql-remote.conf)
 LOCAL_RETENTION=$(getValueFromConfig local_retention 2 mysql-remote.conf)
+SKIP_DATABASES=$(getValueFromConfig skip_databases "" mysql-remote.conf)
 DATE=$(date +"%Y%m%d")
 
 if [ -z "${EXTRA_FILE}" ]; then
@@ -28,7 +29,12 @@ if [ "${BACKUP_LOCATION}" = "/" ]; then
   exit 1
 fi
 
-DATABASES=$(mysql --defaults-extra-file="$EXTRA_FILE" -N -e "SHOW DATABASES" | grep -Ev '^(information_schema|performance_schema|mysql)$')
+FILTER='^(information_schema|performance_schema|mysql)$'
+if [ -n "$SKIP_DATABASES" ]; then
+  FILTER="^(information_schema|performance_schema|mysql|$(echo "$SKIP_DATABASES" | tr ',' '|'))$"
+fi
+
+DATABASES=$(mysql --defaults-extra-file="$EXTRA_FILE" -N -e "SHOW DATABASES" | grep -Ev "$FILTER")
 
 mkdir -p "${BACKUP_LOCATION}/${DATE}"
 

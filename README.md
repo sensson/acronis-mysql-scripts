@@ -83,6 +83,17 @@ and is not used unless you configure and invoke it explicitly.
    local_retention = 2
    ```
 
+   On managed MySQL services the backup user often does not have
+   `SHOW VIEW` on the `sys` schema. Skip it with a comma-separated
+   `skip_databases` value:
+
+   ```
+   skip_databases = sys
+   ```
+
+   The same `skip_databases` key works in `mysql.conf` for local
+   backups.
+
 3. Acronis only supports a single pre-backup command. Pick the one that
    matches what you want to back up:
 

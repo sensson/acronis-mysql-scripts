@@ -35,9 +35,12 @@ jobs:
         run: |
           mkdir -p .debpkg/var/lib/Acronis/
           cp mysqlbackup.sh .debpkg/var/lib/Acronis/
+          cp mysqlbackup-remote.sh .debpkg/var/lib/Acronis/
+          cp mysqlbackup-all.sh .debpkg/var/lib/Acronis/
           cp mysqlfreeze.sh .debpkg/var/lib/Acronis/
           cp mysqlthaw.sh .debpkg/var/lib/Acronis/
           cp mysql.conf .debpkg/var/lib/Acronis/
+          cp mysql-remote.conf .debpkg/var/lib/Acronis/
           cp functions.sh .debpkg/var/lib/Acronis/
           chmod +x .debpkg/var/lib/Acronis/*.sh
 
@@ -45,6 +48,7 @@ jobs:
           mkdir -p .debpkg/DEBIAN
           touch .debpkg/DEBIAN/conffiles
           echo '/var/lib/Acronis/mysql.conf' >> .debpkg/DEBIAN/conffiles
+          echo '/var/lib/Acronis/mysql-remote.conf' >> .debpkg/DEBIAN/conffiles
       - uses: jiro4989/build-deb-action@v3
         with:
           package: acronis-mysql-scripts

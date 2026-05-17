@@ -55,6 +55,45 @@ want or include both.
 11. Click **Done** and **Save changes** and apply it to the backup plan.
 12. Run the backup to test if things are working.
 
+## Remote backups
+
+By default these scripts back up MySQL on the same server. If you also want
+to back up a single remote MySQL server from this machine, an additional
+script is provided: `/var/lib/Acronis/mysqlbackup-remote.sh`. It is opt-in
+and is not used unless you configure and invoke it explicitly.
+
+1. Create a credentials file for the remote server, e.g.
+   `/root/.my-remote.cnf`:
+
+   ```ini
+   [client]
+   host = db2.example.com
+   user = backup
+   password = your-password-here
+   ```
+
+   Make sure it is only readable by root: `chmod 600 /root/.my-remote.cnf`.
+
+2. Edit `/var/lib/Acronis/mysql-remote.conf` to point at the credentials
+   file and pick a separate backup location, for example:
+
+   ```
+   extra_file = /root/.my-remote.cnf
+   backup_location = /backup/remote
+   local_retention = 2
+   ```
+
+3. Acronis only supports a single pre-backup command. Pick the one that
+   matches what you want to back up:
+
+   - Local only: `/var/lib/Acronis/mysqlbackup.sh`
+   - Remote only: `/var/lib/Acronis/mysqlbackup-remote.sh`
+   - Both: `/var/lib/Acronis/mysqlbackup-all.sh`
+
+   The combined script runs both backups independently, so a failure in
+   one does not block the other. The remote script only performs a
+   `mysqldump` — freeze and thaw remain local-only.
+
 ## Limitations
 
 These scripts have been tested on:
